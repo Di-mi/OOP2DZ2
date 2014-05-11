@@ -34,13 +34,16 @@ public class Vozilo extends Akter {
 		voziSe 		= true;
 		Thread.sleep((long) (tmin + Math.random() * (tmax - tmin)));		// vreme put izmedju stanica
 		voziSe 		= false; 
-		la.setText(toString());
+		
+		la.setText(toString());				// da promeni stanje labele
+		
 		Thread.sleep((long) zadrzavanje );	//vreme na stanici
 		
 		brPutnika   = brPutnika - (((int) Math.random() * brPutnika) );
 		uzmiPutnike(linija.uzmi(rbStanice));	
 		voziSe 		= true;
-		if(smer) rbStanice++;
+		
+		if(smer) rbStanice++;					//podesavanja semera i menjenje stanice
 		else rbStanice--;
 	
 		if(rbStanice  == linija.brojStanica() - 1) smer = false;
