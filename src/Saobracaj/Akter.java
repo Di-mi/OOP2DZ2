@@ -3,7 +3,7 @@ import java.awt.*;
 
 public abstract class Akter extends Thread {
 	private Label tekst;
-	private boolean zaustavi;
+	private boolean zaustavi = true;
 	
 	public Akter(Label t)
 	{
@@ -20,15 +20,16 @@ public abstract class Akter extends Thread {
 		try{
 			while (!interrupted())
 			{	
-				synchronized(this)
-				{
-					tekst.setText(toString());
 				
-					while(zaustavi) wait();
+					tekst.setText(toString());
+					synchronized(this)
+					{
+						while(zaustavi) wait();
+					}
 				
 					radnja();
 					tekst.setText(toString());
-				}
+				
 			}
 			
 		}catch(InterruptedException g){}
@@ -38,7 +39,7 @@ public abstract class Akter extends Thread {
 	public synchronized void zaustavi()
 	{	
 		zaustavi = true;
-		notifyAll();
+		
 	}	
 	public synchronized void pokreni()
 	{	
